@@ -1,0 +1,131 @@
+
+1. CREATE a program that will ask the USER FOR a NUMBER AND THEN print OUT a list OF NUMBER FROM 1 TO the NUMBER entered AND the square OF the NUMBER. FOR example, IF the USER entered '3' THEN the program would output: (1 squared IS 1. / 2 squared IS 4. / 3 squared IS 9.)
+
+CREATE OR REPLACE FUNCTION cuadrado (num_in in string) 
+RETURN string AS
+   counter_to_num number:=1; 
+   message string(1000);
+   square_value number:=0;
+BEGIN
+WHILE counter_to_num<=num_in
+LOOP  
+   square_value := power(counter_to_num, 2);
+   message := message+counter_to_num+' squared is '+square_value+' / ';
+   counter_to_num := counter_to_num+1;   
+END LOOP;
+   return message;
+END;
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+3. function that accepts a number as a parameter and check the number is prime or not.
+
+CREATE OR REPLACE FUNCTION primo (num_in in string) 
+RETURN string AS
+   counter_to_num number:=2; 
+   message string(15);
+   check_num number:=0;
+BEGIN
+WHILE counter_to_num<num_in
+LOOP  
+   if (mod(num_in, counter_to_num) = 0) then
+   check_num := 1;
+   message := 'No es primo';
+   end loop;
+   end if;
+   counter_to_num := counter_to_num+1;   
+END LOOP;
+   if (check_num := 0) then
+   message := 'es numero primo';
+   end if;
+   return message;
+END;
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+4. Function to calculate hypotenuse given two cathetus
+
+CREATE OR REPLACE FUNCTION hipotenusa (cat_1 in integer,cat_2 in integer) 
+RETURN integer AS
+   hypo number := 0; 
+BEGIN
+   hypo := SQRT(power(cat_1, 2) + power(cat_2, 2));
+   return hypo;
+END;
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+5. Function to convert celsius to Fahrenheit
+
+
+CREATE OR REPLACE FUNCTION grados(cels in integer) 
+RETURN integer AS
+   far number := 0; 
+BEGIN
+   far := ((9/5)*cels) +32;
+   return far;
+END;
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+6. Function to convert USD Dollar to colombian pesos
+
+CREATE OR REPLACE FUNCTION dinero (dolar in integer) 
+RETURN integer AS
+   pesos number := 0; 
+BEGIN
+   pesos:= dolar*2989;
+   return pesos;
+END;
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+7. Function to convert Bytes to Gygabytes
+
+
+CREATE OR REPLACE FUNCTION almacenamiento (Bytes in integer) 
+RETURN integer AS
+   Gygabytes number := 0; 
+BEGIN
+   Gygabytes:= Bytes/1.073.741.824;
+   return Gygabytes;
+END;
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+
+8. Find the difference BETWEEN the square OF the SUM AND the SUM OF the squares OF the FIRST N NATURAL numbers. The square OF the SUM OF the FIRST ten NATURAL numbers IS (1 + 2 + ... + 10)² = 55² = 3025. The SUM OF the squares OF the FIRST ten NATURAL numbers IS 1² + 2² + ... + 10² = 385. Hence the difference BETWEEN the square OF the SUM OF the FIRST ten NATURAL numbers AND the SUM OF the squares OF the FIRST ten NATURAL numbers IS 3025 - 385 = 2640.
+
+
+CREATE OR REPLACE FUNCTION diferencia (num_in in string) 
+RETURN string AS
+   counter_to_num number:=1; 
+   message string(20);
+   square_total_sum number:=0;
+   square_sum number:=0;
+   difference number := 0;
+BEGIN
+WHILE counter_to_num<=num_in
+LOOP  
+   square_total_sum := square_total_sum + counter_to_num;
+   counter_to_num := counter_to_num+1;   
+END LOOP;
+   counter_to_num := 0;
+   square_total_sum := power(square_total_sum,2);
+WHILE counter_to_num<=num_in
+LOOP  
+   square_sum := square_sum + power(counter_to_num, 2);
+   counter_to_num := counter_to_num+1;   
+END LOOP;
+   difference := square_total_sum - square_sum;
+   message := square_total_sum + ' - ' + square_sum + ' = ' + difference;
+   return message;
+END;
