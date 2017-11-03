@@ -145,7 +145,7 @@ WHILE counter_to_num<=num_in
 LOOP  
    square_value := power(counter_to_num, 2); /*guardamos el valor al cuadrado de el primer numero*/
    message2 := square_value; /* guardamos el valor al cuadrado del numero actual en un texto para poder hacer el condicional*/
-   message := message || square_value; /*Concatenamos el string con la informacion de texto previa con el cuadrado actual*/
+   message := message || square_value||', '; /*Concatenamos el string con la informacion de texto previa con el cuadrado actual*/
    if (INSTR(message2, num_in_2))>0 then /*evaluamos si dentro del cuadrado actual guardado en message2 se encuentra el numero ingresado como parametro , si es mayor de cero es porque hubo coincidencia*/
       counter_of_matches := counter_of_matches + 1; /*aumentamos el numero de coiincidencias con el string ingresado*/
    end if; /*termina el if*/
