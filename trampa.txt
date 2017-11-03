@@ -102,7 +102,7 @@ END;
 _______________________________________________________________________________________________________________________________________________________________________
 
 
-8. Find the difference BETWEEN the square OF the SUM AND the SUM OF the squares OF the FIRST N NATURAL numbers. The square OF the SUM OF the FIRST ten NATURAL numbers IS (1 + 2 + ... + 10)² = 55² = 3025. The SUM OF the squares OF the FIRST ten NATURAL numbers IS 1² + 2² + ... + 10² = 385. Hence the difference BETWEEN the square OF the SUM OF the FIRST ten NATURAL numbers AND the SUM OF the squares OF the FIRST ten NATURAL numbers IS 3025 - 385 = 2640.
+8. Find the difference BETWEEN the square OF the SUM AND the SUM OF the squares OF the FIRST N NATURAL numbers. The square OF the SUM OF the FIRST ten NATURAL numbers IS (1 + 2 + ... + 10)Â² = 55Â² = 3025. The SUM OF the squares OF the FIRST ten NATURAL numbers IS 1Â² + 2Â² + ... + 10Â² = 385. Hence the difference BETWEEN the square OF the SUM OF the FIRST ten NATURAL numbers AND the SUM OF the squares OF the FIRST ten NATURAL numbers IS 3025 - 385 = 2640.
 
 
 CREATE OR REPLACE FUNCTION diferencia (num_in in string) 
@@ -129,3 +129,32 @@ END LOOP;
    message := square_total_sum + ' - ' + square_sum + ' = ' + difference;
    return message;
 END;
+
+________________________________________________________________________________________________________________________________________
+
+
+CREATE OR REPLACE FUNCTION cuadrado (num_in in integer, num_in_2 in string) 
+RETURN string AS
+   counter_to_num number:=1;
+   counter_of_matches number :=0;
+   message string(100);
+   message2 string(20);
+   square_value number:=0;
+BEGIN
+WHILE counter_to_num<=num_in
+LOOP  
+   square_value := power(counter_to_num, 2); /*guardamos el valor al cuadrado de el primer numero*/
+   message2 := square_value; /* guardamos el valor al cuadrado del numero actual en un texto para poder hacer el condicional*/
+   message := message || square_value; /*Concatenamos el string con la informacion de texto previa con el cuadrado actual*/
+   if (INSTR(message2, num_in_2))>0 then /*evaluamos si dentro del cuadrado actual guardado en message2 se encuentra el numero ingresado como parametro , si es mayor de cero es porque hubo coincidencia*/
+      counter_of_matches := counter_of_matches + 1; /*aumentamos el numero de coiincidencias con el string ingresado*/
+   end if; /*termina el if*/
+   counter_to_num := counter_to_num+1; /*avanza el contador hsata el final*/
+END LOOP;
+   DBMS_OUTPUT.PUT_LINE(counter_of_matches);
+   return message;
+END;
+
+message := message || square_value||', '; /*Para agregar coma entre cada potencia*/
+
+select cuadrado(4, '1') from dual; /*asi se llaman funciones select nobmbre_de_funcion (parametro1, parametro2, .. parametron)*/
